@@ -1,12 +1,14 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChatMessage } from './chat-message';
 import { ChatInput } from './chat-input';
 import { useChat } from '@/hooks/useChat';
 import { Loader2 } from 'lucide-react';
 import { Button } from '../ui/button';
+import { nanoid } from 'nanoid';
 
 export function ChatContainer() {
+  const [conversationId, setConversationId] = useState(nanoid());
   const { messages, isLoading, error, sendMessage, clearChat } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -19,7 +21,14 @@ export function ChatContainer() {
     <div className="flex h-full flex-col overflow-hidden rounded-lg border">
       <div className="flex items-center justify-between bg-neutral-900 p-3">
         <h2 className="text-lg font-semibold text-primary-foreground">Chat con IA</h2>
-        <Button size="sm" variant="secondary" onClick={clearChat}>
+        <Button
+          size="sm"
+          variant="secondary"
+          onClick={() => {
+            clearChat();
+            setConversationId(nanoid());
+          }}
+        >
           Nueva conversación
         </Button>
       </div>
@@ -39,7 +48,7 @@ export function ChatContainer() {
               ))}
               {isLoading && (
                 <div className="flex justify-center p-4">
-                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  <Loader2 className="size-6 animate-spin text-primary" />
                 </div>
               )}
               {error && (
@@ -51,7 +60,7 @@ export function ChatContainer() {
         </div>
       </ScrollArea>
 
-      <ChatInput onSend={sendMessage} isLoading={isLoading} />
+      <ChatInput onSend={sendMessage} conversationId={conversationId} isLoading={isLoading} />
     </div>
   );
 }

@@ -13,14 +13,14 @@ interface ChatResponse {
   };
 }
 
-export async function sendMessage(message: string): Promise<ChatResponse> {
+export async function sendMessage(message: string, conversationId: string): Promise<ChatResponse> {
   try {
     const response = await fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message, conversation_id: conversationId }),
     });
 
     if (!response.ok) {

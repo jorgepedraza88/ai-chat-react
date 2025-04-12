@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Message, ChatState } from '@/lib/types';
 import { sendMessage as apiSendMessage } from '@/lib/api';
 
-// Hook personalizado para manejar el estado del chat
 export function useChat() {
   const [state, setState] = useState<ChatState>({
     messages: [],
@@ -12,7 +11,7 @@ export function useChat() {
   });
 
   // Función para enviar un mensaje
-  const sendMessage = async (content: string) => {
+  const sendMessage = async (content: string, conversationId: string) => {
     if (!content.trim()) return;
 
     // Crear mensaje del usuario
@@ -33,7 +32,7 @@ export function useChat() {
 
     try {
       // Enviar el mensaje al API
-      const response = await apiSendMessage(content);
+      const response = await apiSendMessage(content, conversationId);
 
       // Crear mensaje del asistente
       const assistantMessage: Message = {
@@ -60,7 +59,6 @@ export function useChat() {
     }
   };
 
-  // Función para limpiar el chat
   const clearChat = () => {
     setState({
       messages: [],

@@ -10,7 +10,7 @@ function App() {
       </header>
 
       <main className="container flex-1 py-6">
-        <div className="mx-auto h-[600px] max-w-4xl">
+        <div className="mx-auto h-[700px] max-w-4xl">
           <ChatContainer />
         </div>
       </main>

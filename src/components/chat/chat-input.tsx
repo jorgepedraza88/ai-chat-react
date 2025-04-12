@@ -1,19 +1,20 @@
-import React, { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { SendIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 interface ChatInputProps {
-  onSend: (message: string) => void;
+  onSend: (message: string, conversationId: string) => void;
+  conversationId: string;
   isLoading: boolean;
 }
 
-export function ChatInput({ onSend, isLoading }: ChatInputProps) {
+export function ChatInput({ onSend, conversationId, isLoading }: ChatInputProps) {
   const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
     if (message.trim() && !isLoading) {
-      onSend(message);
+      onSend(message, conversationId);
       setMessage('');
     }
   };
@@ -36,7 +37,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
         className="flex-1"
       />
       <Button onClick={handleSubmit} disabled={isLoading || !message.trim()} size="icon">
-        <SendIcon className="h-4 w-4" />
+        <SendIcon className="size-4" />
       </Button>
     </div>
   );
