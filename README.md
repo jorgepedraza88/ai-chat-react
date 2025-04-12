@@ -1,5 +1,7 @@
 # AI Chat App
 
+![image](https://github.com/user-attachments/assets/a8890c25-9b5b-43ba-9535-7be09760f088)
+
 Una aplicación de chat con inteligencia artificial desarrollada con Vite, React, TypeScript, Shadcn UI y Tailwind CSS.
 
 ## Características
